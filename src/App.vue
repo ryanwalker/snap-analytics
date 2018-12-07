@@ -1,18 +1,36 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Transcription msg="Snapped Image"/>
+    <button v-on:click="doStuff()"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Transcription from './components/Transcription.vue'
+import db from './db.ts';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
+    Transcription,
+  },
+  methods: {
+    doStuff() {
+      const docs = db.collection('production').doc('ClCFmpieDq89nR2s6lU4');
+
+      docs.get().then(function(docs) {
+          // if (docs.exists) {
+          //     console.log("Document data:", doc.data());
+          // } else {
+          //     // doc.data() will be undefined in this case
+          //     console.log("No such document!");
+          // }
+      }).catch(function(error) {
+          console.log("Error getting document:")
+          console.log( error);
+      });
+    }
+  },
 }
 </script>
 
